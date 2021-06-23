@@ -1,0 +1,72 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 5rem;
+}
+.wrap {
+  max-width: 800px;
+}
+.valueRow {
+  & > div {
+    padding: 0 1rem;
+  }
+  .valueInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    input {
+      font-size: 3.5rem;
+      text-align: center;
+      border: 0.25rem solid #000;
+      border-radius: 50%;
+      height: 120px;
+      width: 120px;
+    }
+    span {
+      top: 65%;
+    }
+  }
+}
+
+.countDown {
+  & > div {
+    margin: 0.5rem 0;
+  }
+  .timeLeft {
+    display: flex;
+    white-space: nowrap;
+    .field > div {
+      font-size: 3.5rem;
+    }
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex: 1;
+      margin: 0 0.5rem;
+      height: 120px;
+      width: 120px;
+
+      text-align: center;
+      border-radius: 50%;
+      border: 0.25rem solid #000;
+    }
+  }
+  .control {
+    display: flex;
+    justify-content: center;
+    & > * {
+      margin: 0 0.5rem;
+    }
+  }
+}
