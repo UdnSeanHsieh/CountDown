@@ -14,22 +14,46 @@
 .wrap {
   max-width: 800px;
 }
-.valueRow {
-  & > div {
-    padding: 0 1rem;
+
+.form {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.valueInput {
+  input {
+    font-size: 2rem;
+    text-align: center !important;
+    height: 4rem;
   }
-  .valueInput {
-    input {
-      font-size: 2rem;
-      text-align: center;
-      height: 4rem;
-    }
-    span {
-      font-size: 2rem;
-    }
+  span {
+    font-size: 2rem;
   }
 }
 
+.valuesRow {
+  & > div {
+    padding: 0 1rem;
+  }
+  .valuesInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    input {
+      font-size: 3.5rem;
+      text-align: center;
+      border-radius: 50%;
+      height: 120px;
+      width: 120px;
+    }
+    span {
+      top: 65%;
+    }
+  }
+}
 .countDown {
   & > div {
     margin: 0.5rem 0;
