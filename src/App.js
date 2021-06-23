@@ -1,61 +1,38 @@
 import React, { useState } from "react";
-import { Form, message, Row, Col, Input, Button } from "antd";
+import { Form, message, Row, Col, Tooltip, Input, Button } from "antd";
 import CountDown from "./component/CountDown";
 import "antd/dist/antd.css";
-
-import { field } from "./const";
-import "./styles.less";
+import "./styles.css";
 
 export default function App() {
-  const initValue = () => {
-    let obj = {};
-    Object.keys(field).forEach((key) => {
-      obj[key] = {
-        value: 0,
-        suffix: field[key].text
-      };
-    });
-    return obj;
-  };
-
   const [deadline, setDeadline] = useState(0);
-  const [values, setValues] = useState(() => initValue());
+  const [value, setValue] = useState(0);
   const [counting, setCounting] = useState(false);
 
   const inputHandle = (e) => {
-    const { value, name } = e.target;
+    const { value } = e.target;
     const reg = /^\d+$/;
     if ((!isNaN(value) && reg.test(value)) || value === "") {
-      let nValue = value === "" ? 0 : parseInt(value, 10);
-      setValues((preV) => {
-        return {
-          ...preV,
-          [name]: {
-            ...preV[name],
-            value: nValue > 99 ? 99 : nValue
-          }
-        };
+      setValue(() => {
+        if (parseInt(value, 10) > 1555200) return 1555200;
+        else return value === "" ? 0 : parseInt(value, 10);
       });
     }
   };
 
   const StartCount = (e) => {
     e.preventDefault();
-    let sec = 0;
-    Object.keys(values).forEach((key) => {
-      sec = sec + field[key].unit * values[key].value;
-    });
-    if (sec === 0) {
-      message.error("至少輸入一個數字");
+    if (value === 0) {
+      message.error("請輸入大於0的數字");
       return;
     }
-    setDeadline(sec);
+    setDeadline(value * 1000);
     setCounting(true);
-    setValues(initValue());
+    setValue(0);
   };
 
   return (
-    <div className="wrap">
+    <div className='wrap'>
       {counting ? (
         <CountDown
           deadline={deadline}
@@ -66,27 +43,22 @@ export default function App() {
       ) : (
         <Form onSubmit={StartCount}>
           <Form.Item>
-            <Row className="valueRow">
-              {Object.keys(values).map((key, i) => {
-                return (
-                  <Col key={i} span={4}>
-                    <Input
-                      className="valueInput"
-                      name={key}
-                      value={values[key].value}
-                      suffix={values[key].suffix}
-                      onChange={inputHandle}
-                      size="large"
-                    />
-                  </Col>
-                );
-              })}
+            <Row className='valueRow'>
+              <Tooltip placement='top' title='請輸入秒數'>
+                <Input
+                  className='valueInput'
+                  value={value}
+                  suffix='秒'
+                  onChange={inputHandle}
+                  size='large'
+                />
+              </Tooltip>
             </Row>
           </Form.Item>
           <Form.Item>
-            <Row type="flex" justify="center">
+            <Row type='flex' justify='center'>
               <Col>
-                <Button type="primary" htmlType="submit" size="large">
+                <Button type='primary' htmlType='submit' size='large'>
                   開始
                 </Button>
               </Col>

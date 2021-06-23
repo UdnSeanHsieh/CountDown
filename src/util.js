@@ -17,13 +17,19 @@ export const timeFormat = (totalSecond) => {
   return { year, month, day, hour, minute, second };
 };
 
-export const useCountDown = (number, step = 1, speed = 1) => {
+export const useCountDown = (number, step = 1, speed = 1, timeUp) => {
   const timer = useRef();
   const [value, setValue] = useState(number);
   const [state, setState] = useState(true);
   useEffect(() => {
     setValue(number);
   }, [number]);
+  useEffect(() => {
+    if (value === 0) {
+      setState(false);
+      if (typeof timeUp === "function") timeUp();
+    }
+  }, [value]);
   useEffect(() => {
     if (value > 0 && state) {
       timer.current = setTimeout(() => {
@@ -45,7 +51,10 @@ export const useCountDown = (number, step = 1, speed = 1) => {
       setValue((preV) => preV + v);
     },
     onStart: () => {
-      setState(true);
+      setState(() => {
+        if (value === 0) return false;
+        return true;
+      });
     },
     onStop: () => {
       setState(false);
@@ -55,14 +64,14 @@ export const useCountDown = (number, step = 1, speed = 1) => {
     },
     reset: () => {
       setValue(number);
-    }
+    },
   };
 };
 
-export const useTimeCountDown = (deadline, step, speed) => {
-  const countDown = useCountDown(deadline, step, speed);
+export const useTimeCountDown = (deadline, step, speed, timeUp) => {
+  const countDown = useCountDown(deadline, step, speed, timeUp);
   return {
     ...timeFormat(countDown.value),
-    ...countDown
+    ...countDown,
   };
 };

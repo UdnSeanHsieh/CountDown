@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Button, Statistic } from "antd";
+import { Button, Statistic, message } from "antd";
 import { field } from "../const";
 import { useTimeCountDown } from "../util";
 
 export default ({ deadline, reset }) => {
   const [speed, setSpeed] = useState(1);
+
+  const timeUp = () => {
+    message.info("時間到");
+  };
+
   const {
     value,
     state,
@@ -15,14 +20,14 @@ export default ({ deadline, reset }) => {
     clear,
     reset: reCounting,
     ...fields
-  } = useTimeCountDown(deadline, 1000, speed);
+  } = useTimeCountDown(deadline, 1000, speed, timeUp);
   return (
-    <div className="countDown">
-      <div className="timeLeft">
+    <div className='countDown'>
+      <div className='timeLeft'>
         {Object.keys(field).map((key, i) => {
           return (
             <Statistic
-              className="field"
+              className='field'
               key={i}
               value={fields[key].toString().padStart(2, "0")}
               suffix={field[key].text}
@@ -30,9 +35,9 @@ export default ({ deadline, reset }) => {
           );
         })}
       </div>
-      <div className="control">
+      <div className='control'>
         <Button
-          type="primary"
+          type='primary'
           disabled={speed === 4}
           onClick={() => {
             setSpeed((preSpeed) => (preSpeed * 2 > 4 ? 4 : preSpeed * 2));
@@ -41,7 +46,7 @@ export default ({ deadline, reset }) => {
           減速
         </Button>
         <Button
-          type="primary"
+          type='primary'
           onClick={() => {
             minus(5000);
           }}
@@ -50,22 +55,22 @@ export default ({ deadline, reset }) => {
         </Button>
         {state ? (
           <>
-            <Button type="primary" onClick={onStop}>
+            <Button type='primary' onClick={onStop}>
               暫停
             </Button>
           </>
         ) : (
           <>
-            <Button type="primary" onClick={onStart}>
+            <Button type='primary' onClick={onStart}>
               繼續
             </Button>
-            <Button type="primary" onClick={reCounting}>
+            <Button type='primary' onClick={reCounting}>
               重置
             </Button>
           </>
         )}
         <Button
-          type="primary"
+          type='primary'
           onClick={() => {
             puls(5000);
           }}
@@ -73,7 +78,7 @@ export default ({ deadline, reset }) => {
           +5秒
         </Button>
         <Button
-          type="primary"
+          type='primary'
           disabled={speed === 0.25}
           onClick={() => {
             setSpeed((preSpeed) => (preSpeed / 2 < 0.25 ? 0.25 : preSpeed / 2));
@@ -81,11 +86,11 @@ export default ({ deadline, reset }) => {
         >
           加速
         </Button>
-        <Button type="primary" onClick={clear}>
+        <Button type='primary' onClick={clear}>
           清除
         </Button>
         <Button
-          type="primary"
+          type='primary'
           onClick={() => {
             clear();
             reset();
