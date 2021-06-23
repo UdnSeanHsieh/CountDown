@@ -14,8 +14,9 @@
   * 清除 - 秒數規0
   * 重設 - 重新設定秒數
 
-
-![image](https://user-images.githubusercontent.com/34929382/123021108-07c25280-d406-11eb-960e-5e34bc0e9ded.png)
-
+## 設定秒數
+![image](https://user-images.githubusercontent.com/34929382/123043204-87faaf00-d42a-11eb-9f7f-da39d868484f.png)
+![image](https://user-images.githubusercontent.com/34929382/123043298-ab255e80-d42a-11eb-889d-9993730dc40c.png)
+## 開始計時
 ![image](https://user-images.githubusercontent.com/34929382/123021679-1a895700-d407-11eb-8c34-671215383bd2.png)
-
+![image](https://user-images.githubusercontent.com/34929382/123043402-cf813b00-d42a-11eb-87d4-f30688db0238.png)
